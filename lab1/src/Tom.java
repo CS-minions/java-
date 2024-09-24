@@ -1,6 +1,8 @@
 public class Tom{
     int leg;
     String head;
+    final int MAX = 100;        // 实例常量变量 'MAX'，每个对象都有自己的值
+    final static int MIN = 20;  // 静态常量变量 'MIN'，所有实例共享
     void cry(String s){
         System.out.println(s);
     }
