@@ -1,0 +1,226 @@
+UDP聊天程序代码说明
+
+1. 服务器端代码解析 (UDPServer.java)
+
+1.1 基本结构和变量：
+private static final int PORT = 12345;
+private static Map<String, ClientInfo> clients = new HashMap<>();
+private static DatagramSocket socket;
+
+代码说明：
+- PORT：服务器监听的UDP端口号
+- clients：存储所有客户端信息的映射表
+- socket：UDP数据报套接字
+
+1.2 客户端信息类：
+private static class ClientInfo {
+    InetAddress address;
+    int port;
+    
+    ClientInfo(InetAddress address, int port) {
+        this.address = address;
+        this.port = port;
+    }
+}
+
+代码说明：
+- address：客户端的IP地址
+- port：客户端的端口号
+- 用于存储每个连接客户端的网络信息
+
+1.3 主循环：
+public static void main(String[] args) {
+    try {
+        socket = new DatagramSocket(PORT);
+        byte[] receiveData = new byte[1024];
+        
+        while (true) {
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            socket.receive(receivePacket);
+            // 处理数据...
+        }
+    }
+}
+
+代码说明��
+- 创建UDP套接字并绑定端口
+- 创建接收缓冲区
+- 循环接收数据包
+- 对每个数据包进行处理
+
+1.4 消息处理：
+private static void processMessage(String message, InetAddress address, int port) {
+    String[] parts = message.split("\\|", 3);
+    String type = parts[0];
+    String clientName = parts[1];
+    String content = parts.length > 2 ? parts[2] : "";
+    
+    switch (type) {
+        case "JOIN": // 处理加入
+        case "MESSAGE": // 处理消息
+        case "LEAVE": // 处理离开
+    }
+}
+
+代码说明：
+- 解析消息格式：类型|客户端名称|内容
+- 根据消息类型进行不同处理
+- 维护客户端列表
+- 广播系统消息
+
+1.5 广播实现：
+private static void broadcast(String message) {
+    byte[] sendData = message.getBytes();
+    for (Map.Entry<String, ClientInfo> entry : clients.entrySet()) {
+        // 发送数据包给每个客户端
+    }
+}
+
+代码说明：
+- 将消息转换为字节数组
+- 遍历所有客户端
+- 创建并发送数据包
+
+2. 客户端代码解析 (UDPClient.java)
+
+2.1 基本结构和变量：
+private static final String SERVER_IP = "localhost";
+private static final int SERVER_PORT = 12345;
+private String clientName;
+private DatagramSocket socket;
+private InetAddress serverAddress;
+private JFrame frame;
+private JTextArea messageArea;
+private JTextField inputField;
+private volatile boolean running;
+
+代码说明：
+- SERVER_IP：服务器IP地址
+- SERVER_PORT：服务器端口
+- clientName：客户端标识
+- socket：UDP套接字
+- 其他GUI组件
+
+2.2 GUI初始化：
+public UDPClient(String name) {
+    this.clientName = name;
+    frame = new JFrame(name + " - 聊天窗口");
+    // 初始化GUI组件
+}
+
+代码说明：
+- 创建主窗口
+- 设置窗口关闭处理
+- 添加消息区域
+- 添加输入框
+- 设置窗口位置
+
+2.3 启动客户端：
+private void start() {
+    frame.setVisible(true);
+    running = true;
+    
+    try {
+        socket = new DatagramSocket();
+        serverAddress = InetAddress.getByName(SERVER_IP);
+        sendMessage("JOIN", "");
+        new Thread(this::receiveMessages).start();
+    } catch (IOException e) {
+        messageArea.append("连接失败: " + e.getMessage() + "\n");
+    }
+}
+
+代码说明：
+- 显示GUI窗口
+- 初始化UDP套接字
+- 发送加入消息
+- 启动消息接收线程
+
+2.4 消息发送：
+private void sendMessage(String type, String content) {
+    try {
+        String message = type + "|" + clientName + "|" + content;
+        byte[] sendData = message.getBytes();
+        DatagramPacket sendPacket = new DatagramPacket(
+            sendData,
+            sendData.length,
+            serverAddress,
+            SERVER_PORT
+        );
+        socket.send(sendPacket);
+    } catch (IOException e) {
+        messageArea.append("发送消息失败: " + e.getMessage() + "\n");
+    }
+}
+
+代码说明：
+- 构造消息格式
+- 创建数据包
+- 发送到服务器
+
+2.5 消息接收：
+private void receiveMessages() {
+    byte[] receiveData = new byte[1024];
+    while (running) {
+        try {
+            DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+            socket.receive(receivePacket);
+            // 处理接收到的消息
+        } catch (IOException e) {
+            if (running) {
+                // 处理错误
+            }
+        }
+    }
+}
+
+代码说明：
+- 循环接收消息
+- 解析消息内容
+- 在GUI中显示消息
+
+3. 程序特点
+
+3.1 UDP特性：
+- 无连接通信
+- 消息可能丢失
+- 消息可能乱序
+- 通信开销小
+
+3.2 程序功能：
+- 支持多客户端聊天
+- 系统消息提醒
+- 客户端动态加入/退出
+- 图形界面操作
+
+4. 运行说明
+
+4.1 编译程序：
+javac UDPServer.java
+javac UDPClient.java
+
+4.2 运行顺序：
+1) 先运行服务器：
+   java UDPServer
+
+2) 再运行客户端：
+   java UDPClient
+
+4.3 使用说明：
+- 服务器会自动监听12345端���
+- 客户端启动后会自动打开三个聊天窗口
+- 在输入框输入消息，按回车发送
+- 关闭窗口时会自动发送退出消息
+
+5. 注意事项
+
+5.1 运行环境：
+- 确保Java环境正确配置
+- 确保12345端口未被占用
+- 确保有图形界面支持
+
+5.2 使用注意：
+- 服务器必须先启动
+- 不要频繁关闭重开
+- 消息不要过长
+- 注意网络状态 
