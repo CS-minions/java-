@@ -5,15 +5,18 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.Random;
 
 public class BaiduTranslator {
     private static final String BAIDU_API_URL = "http://api.fanyi.baidu.com/api/trans/vip/translate";
-    private static final String APP_ID = "20241206002221399"; // 替换为你的百度翻译APP ID
-    private static final String SECRET_KEY = "CV4wPA8k2BmgLB9I9ORq"; // 替换为你的百度翻译密钥
+    private static final String APP_ID = "20241206002221399";
+    private static final String SECRET_KEY = "CV4wPA8k2BmgLB9I9ORq";
 
     public static String translate(String text, String from, String to) {
         try {
+            if (text == null || text.trim().isEmpty()) {
+                return "翻译失败：文本不能为空";
+            }
+
             String salt = String.valueOf(System.currentTimeMillis());
             String sign = generateSign(text, salt);
             
@@ -31,33 +34,62 @@ public class BaiduTranslator {
             URL url = new URL(urlStr);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
+            conn.setConnectTimeout(5000);
+            conn.setReadTimeout(5000);
             
             // 读取响应
-            BufferedReader reader = new BufferedReader(
-                new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
             StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                response.append(line);
-            }
-            reader.close();
-            
-            // 简单解析响应
-            String responseStr = response.toString();
-            // 查找 "dst":" 后面的内容
-            int dstIndex = responseStr.indexOf("\"dst\":\"");
-            if (dstIndex != -1) {
-                dstIndex += 7; // "dst":" 的长度
-                int endIndex = responseStr.indexOf("\"", dstIndex);
-                if (endIndex != -1) {
-                    return responseStr.substring(dstIndex, endIndex);
+            try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
                 }
             }
+            
+            // 解析响应
+            String responseStr = response.toString();
+            System.out.println("API响应: " + responseStr); // 调试输出
+            
+            // 检查是否有错误
+            if (responseStr.contains("\"error_code\"")) {
+                int errorCodeStart = responseStr.indexOf("\"error_code\":\"") + 13;
+                int errorCodeEnd = responseStr.indexOf("\"", errorCodeStart);
+                int errorMsgStart = responseStr.indexOf("\"error_msg\":\"") + 13;
+                int errorMsgEnd = responseStr.indexOf("\"", errorMsgStart);
+                
+                String errorCode = responseStr.substring(errorCodeStart, errorCodeEnd);
+                String errorMsg = responseStr.substring(errorMsgStart, errorMsgEnd);
+                return String.format("翻译失败：错误码 %s, 错误信息 %s", errorCode, errorMsg);
+            }
+            
+            // 解析翻译结果
+            int transResultStart = responseStr.indexOf("\"trans_result\":[{");
+            if (transResultStart >= 0) {
+                int dstStart = responseStr.indexOf("\"dst\":\"", transResultStart) + 7;
+                if (dstStart >= 7) {
+                    int dstEnd = responseStr.indexOf("\"},", dstStart);
+                    if (dstEnd == -1) {
+                        dstEnd = responseStr.indexOf("\"}]}", dstStart);
+                    }
+                    if (dstEnd != -1) {
+                        String translatedText = responseStr.substring(dstStart, dstEnd)
+                            .replace("\\\"", "\"")  // 处理转义的引号
+                            .replace("\\\\", "\\"); // 处理转义的反斜杠
+                        return translatedText;
+                    }
+                }
+            }
+            
             return "翻译失败：未找到翻译结果";
             
+        } catch (java.net.SocketTimeoutException e) {
+            return "翻译失败：连接超时，请检查网络";
+        } catch (java.net.UnknownHostException e) {
+            return "翻译失败：无法连接到翻译服务器";
         } catch (Exception e) {
             e.printStackTrace();
-            return "翻译出错: " + e.getMessage();
+            return "翻译失败：" + e.getMessage();
         }
     }
 

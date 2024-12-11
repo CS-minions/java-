@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea10442b-8520-45f9-ab21-76eb185814bb" name="Changes" comment="part1" />
+    <list default="true" id="ea10442b-8520-45f9-ab21-76eb185814bb" name="Changes" comment="part1">
+      <change beforePath="$PROJECT_DIR$/.idea/lab4.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/lab4.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AIModelTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AIModelTranslator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/BaiduTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BaiduTranslator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TranslatorDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TranslatorDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/~$2401-JavaPD-课程实验4-学号-姓名.docx" beforeDir="false" afterPath="$PROJECT_DIR$/~$2401-JavaPD-课程实验4-学号-姓名.docx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +21,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "CS-minions"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "git@github.com:CS-minions/java-.git",
+    "accountId": "4b584392-b8c1-45bc-8174-1e2aa051fb4f"
+  }
+}]]></component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -32,27 +52,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.AmazonProductSimilarityAnalyzer.executor&quot;: &quot;Run&quot;,
-    &quot;Application.AmazonReviewProcessor.executor&quot;: &quot;Run&quot;,
-    &quot;Application.JaccardSimilarityCalculator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProductNeighborhoodCalculator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProductSimilarityCalculator.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProductSimilarityMultiThread.executor&quot;: &quot;Run&quot;,
-    &quot;Application.ProductSimilarityProcessor.executor&quot;: &quot;Run&quot;,
-    &quot;Application.TranslatorDemo.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/caoqinlu/Documents/GitHub/java-/lab4&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.tools&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AmazonProductSimilarityAnalyzer.executor": "Run",
+    "Application.AmazonReviewProcessor.executor": "Run",
+    "Application.JaccardSimilarityCalculator.executor": "Run",
+    "Application.ProductNeighborhoodCalculator.executor": "Run",
+    "Application.ProductSimilarityCalculator.executor": "Run",
+    "Application.ProductSimilarityMultiThread.executor": "Run",
+    "Application.ProductSimilarityProcessor.executor": "Run",
+    "Application.TranslatorDemo.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/caoqinlu/Documents/GitHub/java-/lab4",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.tools"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="AmazonProductSimilarityAnalyzer" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="23" />
