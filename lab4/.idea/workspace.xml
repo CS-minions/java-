@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea10442b-8520-45f9-ab21-76eb185814bb" name="Changes" comment="part1">
-      <change beforePath="$PROJECT_DIR$/.idea/lab4.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/lab4.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AIModelTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AIModelTranslator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BaiduTranslator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/BaiduTranslator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TranslatorDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TranslatorDemo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/~$2401-JavaPD-课程实验4-学号-姓名.docx" beforeDir="false" afterPath="$PROJECT_DIR$/~$2401-JavaPD-课程实验4-学号-姓名.docx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,12 +50,15 @@
   "keyToString": {
     "Application.AmazonProductSimilarityAnalyzer.executor": "Run",
     "Application.AmazonReviewProcessor.executor": "Run",
+    "Application.Client.executor": "Run",
     "Application.JaccardSimilarityCalculator.executor": "Run",
     "Application.ProductNeighborhoodCalculator.executor": "Run",
     "Application.ProductSimilarityCalculator.executor": "Run",
     "Application.ProductSimilarityMultiThread.executor": "Run",
     "Application.ProductSimilarityProcessor.executor": "Run",
+    "Application.ServerS.executor": "Run",
     "Application.TranslatorDemo.executor": "Run",
+    "Application.UDPServer.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
