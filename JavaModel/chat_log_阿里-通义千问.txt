@@ -10,3 +10,75 @@ User: 你好
 Bot: 你好！有什么可以帮助你的吗？
 User: 你好，你是谁
 Bot: 你好！我是Qwen，是阿里云推出的一种超大规模语言模型。我能够生成各种类型的文本，如文章、故事、诗歌、故事等，并能根据不同的场景和需求进行变化和创新。此外，我还具备代码写作能力，可以协助完成编程任务。如果你有任何问题或需要帮助，欢迎随时向我提问！
+User: 你好
+Bot: 你好！有什么我可以帮助你的吗？
+User: 你好呀
+Bot: 你好！有什么可以帮到你的吗？
+User: 你是谁
+Bot: 我是Qwen，由阿里云开发的预训练语言模型。我被设计用来生成各种文本，如文章、故事、诗歌等，并能回答问题、提供信息或与用户进行对话。很高兴为你提供帮助！
+User: 你能写一个java代码吗
+Bot: 当然可以！请告诉我你需要什么样的Java代码。比如，是一个简单的“Hello World”程序，还是更复杂的功能，如数据处理、网络通信、图形界面等？请尽量详细描述你的需求。
+User: 简单的hello
+Bot: 你好！有什么我可以帮助你的吗？
+User: 简单的helloword
+Bot: 当然！下面是一个简单的 "Hello World" 程序，使用几种不同的编程语言来实现：
+
+### Python
+```python
+print("Hello, World!")
+```
+
+### Java
+```java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+```
+
+### C
+```c
+#include <stdio.h>
+
+int main() {
+    printf("Hello, World!\n");
+    return 0;
+}
+```
+
+### JavaScript
+```javascript
+console.log("Hello, World!");
+```
+
+### HTML
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello World</title>
+</head>
+<body>
+    <h1>Hello, World!</h1>
+</body>
+</html>
+```
+
+### Ruby
+```ruby
+puts "Hello, World!"
+```
+
+### Go
+```go
+package main
+
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+```
+
+希望这些示例对你有帮助！如果你有任何其他问题或需要进一步的解释，请随时告诉我。
