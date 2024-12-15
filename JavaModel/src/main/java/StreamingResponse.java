@@ -1,70 +1,54 @@
-import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
+import java.util.concurrent.*;
 
 public class StreamingResponse {
-    private final JTextArea textArea;
+    private final JTextPane textPane;
     private volatile boolean isPaused = false;
     private volatile boolean skipToEnd = false;
-    private int typingSpeed = 50;
-    private Thread streamingThread;
+    private int typingSpeed = 50;  // 默认打字速度（毫秒/字符）
+    private ScheduledExecutorService scheduler;
 
-    public StreamingResponse(JTextArea textArea) {
-        this.textArea = textArea;
+    public StreamingResponse(JTextPane textPane) {
+        this.textPane = textPane;
+        this.scheduler = Executors.newSingleThreadScheduledExecutor();
     }
 
-    public synchronized void streamResponse(String text) {
-        if (streamingThread != null) {
-            streamingThread.interrupt();
-            try {
-                streamingThread.join(100); // 等待之前的线程结束
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
+    public void streamResponse(String response) {
+        if (response == null || response.isEmpty()) return;
         
-        skipToEnd = false;
+        StringBuilder currentText = new StringBuilder(textPane.getText());
+        int startPos = currentText.length();
+        final int[] currentIndex = {0};
         
-        streamingThread = new Thread(() -> {
+        ScheduledFuture<?>[] future = {null};
+        future[0] = scheduler.scheduleAtFixedRate(() -> {
             if (skipToEnd) {
-                SwingUtilities.invokeLater(() -> textArea.append(text));
+                currentText.append(response.substring(currentIndex[0]));
+                updateTextPane(currentText.toString());
+                future[0].cancel(false);
+                skipToEnd = false;
+                currentIndex[0] = response.length();
                 return;
             }
-
-            char[] chars = text.toCharArray();
-            StringBuilder remaining = new StringBuilder(text);
             
-            for (int i = 0; i < chars.length && !Thread.currentThread().isInterrupted(); i++) {
-                while (isPaused && !skipToEnd && !Thread.currentThread().isInterrupted()) {
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        return;
-                    }
-                }
+            if (!isPaused && currentIndex[0] < response.length()) {
+                currentText.append(response.charAt(currentIndex[0]));
+                updateTextPane(currentText.toString());
+                currentIndex[0]++;
                 
-                if (skipToEnd) {
-                    SwingUtilities.invokeLater(() -> textArea.append(remaining.toString()));
-                    break;
-                }
-
-                final char currentChar = chars[i];
-                SwingUtilities.invokeLater(() -> textArea.append(String.valueOf(currentChar)));
-                
-                if (remaining.length() > 0) {
-                    remaining.deleteCharAt(0);
-                }
-                
-                try {
-                    Thread.sleep(typingSpeed);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    return;
+                if (currentIndex[0] >= response.length()) {
+                    future[0].cancel(false);
                 }
             }
+        }, 0, typingSpeed, TimeUnit.MILLISECONDS);
+    }
+
+    private void updateTextPane(String text) {
+        SwingUtilities.invokeLater(() -> {
+            textPane.setText("");
+            CodeHighlighter.insertText(textPane, text, false);
+            textPane.setCaretPosition(textPane.getDocument().getLength());
         });
-        
-        streamingThread.start();
     }
 
     public void pause() {
@@ -84,14 +68,8 @@ public class StreamingResponse {
     }
 
     public void cleanup() {
-        if (streamingThread != null) {
-            streamingThread.interrupt();
-            try {
-                streamingThread.join(100); // 等待线程结束
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            streamingThread = null;
+        if (scheduler != null && !scheduler.isShutdown()) {
+            scheduler.shutdownNow();
         }
     }
 } 

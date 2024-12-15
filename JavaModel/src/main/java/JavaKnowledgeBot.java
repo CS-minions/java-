@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class JavaKnowledgeBot extends JFrame {
 
     private JComboBox<String> vendorComboBox;
-    private JTextArea chatTextArea;
+    private JTextPane chatTextPane;
     private JTextField inputTextField;
     private JButton sendButton;
     private ExecutorService threadPool;
@@ -46,7 +46,7 @@ public class JavaKnowledgeBot extends JFrame {
         createPanels();
         
         // 初始化流式输出管理器
-        streamingResponse = new StreamingResponse(chatTextArea);
+        streamingResponse = new StreamingResponse(chatTextPane);
         
         // 添加控制面板
         addControlPanel();
@@ -75,12 +75,12 @@ public class JavaKnowledgeBot extends JFrame {
         rightPanel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         
         // 聊天区域
-        chatTextArea = new JTextArea();
-        chatTextArea.setEditable(false);
-        chatTextArea.setFont(new Font("微软雅黑", Font.PLAIN, 14));
-        chatTextArea.setLineWrap(true);
-        chatTextArea.setWrapStyleWord(true);
-        JScrollPane scrollPane = new JScrollPane(chatTextArea);
+        chatTextPane = new JTextPane();
+        chatTextPane.setEditable(false);
+        chatTextPane.setFont(new Font("微软雅黑", Font.PLAIN, 14));
+        chatTextPane.putClientProperty("JTextPane.lineWrap", Boolean.TRUE);
+        chatTextPane.putClientProperty("caretWidth", 1);
+        JScrollPane scrollPane = new JScrollPane(chatTextPane);
         scrollPane.setBorder(BorderFactory.createTitledBorder("对话区域"));
         rightPanel.add(scrollPane, BorderLayout.CENTER);
 
@@ -180,17 +180,17 @@ public class JavaKnowledgeBot extends JFrame {
     private void displayMessage(String message) {
         if (message.startsWith("User: ") || message.startsWith("Error: ")) {
             // 用户消息和错误消息直接显示
-            chatTextArea.append(message);
+            chatTextPane.setText(chatTextPane.getText() + message);
         } else {
             // 只有新的AI响应使用流式输出
             streamingResponse.streamResponse(message);
         }
-        chatTextArea.setCaretPosition(chatTextArea.getDocument().getLength());
+        chatTextPane.setCaretPosition(chatTextPane.getDocument().getLength());
     }
 
     private void handleError(Exception ex) {
         SwingUtilities.invokeLater(() -> {
-            chatTextArea.append("Error: " + ex.getMessage() + "\n");
+            chatTextPane.setText(chatTextPane.getText() + "Error: " + ex.getMessage() + "\n");
             ex.printStackTrace();
             // 显示错误对话框
             JOptionPane.showMessageDialog(
@@ -207,35 +207,54 @@ public class JavaKnowledgeBot extends JFrame {
             writer.write(message);
             writer.newLine();
         } catch (IOException e) {
-            handleError(new Exception("保存聊天记录失败: " + e.getMessage(), e));
+            e.printStackTrace();
+            CodeHighlighter.insertText(chatTextPane, "Error: 保存聊天记录失败: " + e.getMessage() + "\n", false);
         }
     }
 
     private void loadChatRecord() {
         String logFilePath = getLogFilePath();
-        try (BufferedReader reader = new BufferedReader(new FileReader(logFilePath))) {
+        File logFile = new File(logFilePath);
+        
+        // 如果文件不存在，创建新文件
+        if (!logFile.exists()) {
+            try {
+                logFile.createNewFile();
+                return; // 新文件创建后直接返回，因为内容为空
+            } catch (IOException e) {
+                handleError(new Exception("创建聊天记录文件失败: " + e.getMessage(), e));
+                return;
+            }
+        }
+        
+        // 读取现有文件内容
+        try (BufferedReader reader = new BufferedReader(new FileReader(logFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                chatTextArea.append(line + "\n");
+                chatTextPane.setText(chatTextPane.getText() + line + "\n");
             }
         } catch (IOException e) {
-            // 文件不存在时不显示错误，因为可能是首次使用
-            if (!e.getMessage().contains("No such file")) {
-                handleError(new Exception("加载聊天记录失败: " + e.getMessage(), e));
-            }
+            handleError(new Exception("加载聊天记录失败: " + e.getMessage(), e));
         }
     }
 
     private void onVendorChange(ActionEvent e) {
         // 当厂商选择改变时，重新加载对应厂商的日志记录
-        chatTextArea.setText(""); // 清空当前聊天记录
+        chatTextPane.setText(""); // 清空当前聊天记录
         loadChatRecord(); // 加载新选厂商的聊天记录
     }
 
     private String getLogFilePath() {
-        // 根据选择的厂商返回不同的日志文件路径
+        // 获取选中的厂商名称
         String selectedVendor = (String) vendorComboBox.getSelectedItem();
-        return "chat_log_" + selectedVendor.replace(" ", "_") + ".txt";
+        // 使用 UTF-8 编码处理文件名
+        try {
+            String fileName = "chat_log_" + selectedVendor.replace(" ", "_") + ".txt";
+            return new String(fileName.getBytes("UTF-8"), "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "chat_log_default.txt";
+        }
     }
 
     private ModelAPI createAPIInstance(String vendorModelPair) {
