@@ -5,8 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea10442b-8520-45f9-ab21-76eb185814bb" name="Changes" comment="part1">
+      <change beforePath="$PROJECT_DIR$/../202401-JavaPD-课程作业-学号-姓名.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../202401-JavaPD-课程作业-学号-姓名.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/chat_log_百度-文心一言.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaModel/chat_log_百度-文心一言.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/chat_log_阿里-通义千问.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaModel/chat_log_阿里-通义千问.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/new_document.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/target/classes/AliyunAPI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/target/classes/BaiduAPI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/target/classes/CodeHighlighter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/target/classes/Config.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/target/classes/JavaKnowledgeBot$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/target/classes/JavaKnowledgeBot.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/target/classes/ModelAPI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/target/classes/ModelAPIFactory.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/target/classes/StreamingResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/test/JavaKnowledgeBotTest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaModel/test/TestAnalysis.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/聊天程序说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/聊天程序说明.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/TranslatorDemo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/TranslatorDemo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TranslatorDemo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TranslatorDemo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../~$2401-JavaPD-课程作业-学号-姓名.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../~$识问答机器人.docx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +86,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/caozh/Desktop/java程序设计",
+    "last_opened_file_path": "C:/Users/caozh/Desktop/java程序设计/lab4",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",

@@ -36,7 +36,7 @@ public class Client {
         
         frame.pack();
         
-        // 设置窗口���置
+        // 设置窗口
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         if (name.equals("ClientA")) {
             frame.setLocation(0, 0);

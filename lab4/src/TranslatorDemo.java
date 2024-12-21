@@ -220,9 +220,10 @@ public class TranslatorDemo extends JFrame {
         } else if (text.equals(preset1_en)) {
             return preset1_ch;
         }
-        
+
         return "未找到匹配的预设翻译。\n\n请使用以下示例文本：\n\n中文：\n" + preset1_ch + "\n\n英文：\n" + preset1_en;
     }
+
 
     public static void main(String[] args) {
         // 设置Swing的外观
